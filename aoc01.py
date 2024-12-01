@@ -22,3 +22,22 @@ def day01_01():
         total_distance = sum(distances)
 
         print(total_distance)
+
+def day01_02():
+    file_path = "input/01.txt"
+    with open(file_path) as file:
+        file_as_per_line = file.read().splitlines()
+
+        # To know more about this line, see: list comprehension, zip()
+        left_list, right_list = zip(*[item.split() for item in file_as_per_line])
+
+        counts = {}
+
+        sum = 0
+
+        for item in left_list:
+            if not item in counts:
+                counts[item] = right_list.count(item)
+            sum += int(item) * int(counts[item])
+
+        print(sum) 

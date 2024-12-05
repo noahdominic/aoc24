@@ -25,7 +25,26 @@ def day04_01(file_path):
 
         print(total)
 
+def day04_02(file_path):
+    with open(file_path) as f:
+        total = 0
+        grid = [list(line) for line in f.read().splitlines()]
+        print(grid)
 
+        padded_grid = [['*' for _ in range(len(grid[0]) + 2)]]
+        for row in grid:
+            padded_grid += [['*'] + row[::] + ['*']]
+
+        padded_grid += [['*' for _ in range(len(grid[0]) + 2)]]
+
+        for i in range(len(padded_grid)):
+            for j in range(len(padded_grid[0])):
+                if padded_grid[i][j] == 'A':
+                    if (padded_grid[i-1][j-1] == 'M' and padded_grid[i+1][j+1] == 'S' or padded_grid[i-1][j-1] == 'S' and padded_grid[i+1][j+1] == 'M') and (padded_grid[i-1][j+1] == 'M' and padded_grid[i+1][j-1] == 'S' or padded_grid[i-1][j+1] == 'S' and padded_grid[i+1][j-1] == 'M'):
+                           total += 1
+
+        print(padded_grid)
+        print(total)
  
 def rotate_90deg(lines):
     grid = [list(line) for line in lines]

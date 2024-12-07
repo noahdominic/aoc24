@@ -1,4 +1,14 @@
 def day07_01(path):
+    day07(path, has_valid_operation)
+
+
+
+def day07_02(path):
+    day07(path, has_valid_operation_combo_2)
+
+
+
+def day07(path, validator):
     with open(path, 'r') as f:
         lines = f.read().splitlines()
 
@@ -8,29 +18,40 @@ def day07_01(path):
             candidate_result, numbers = line.split(":")
             numbers = numbers.split(" ")[1:]
 
-            numbers_have_valid_combo = has_valid_operation_combo(numbers, candidate_result)
+            numbers_have_valid_combo = validator(numbers, candidate_result)
 
             if numbers_have_valid_combo:
-                print(numbers, "is valid!")
                 total_calib_result += int(candidate_result)
 
         print(total_calib_result)
 
 
 
-def day07_02(path):
-    with open(path, 'r') as f:
-        lines = f.read().splitlines()
+def perform_concatenation(numbers, operations):
+    new_numbers = []
 
-        print(number_to_boolean_list(1, (2**0)))
+    concat_buffer = numbers [0]
+
+    for i, number in enumerate(numbers[1:]):
+        if operations[i] == 2:
+            concat_buffer += number
+        else:
+            new_numbers.append(concat_buffer)
+            concat_buffer = number
+
+    if not concat_buffer == "":
+        new_numbers.append(concat_buffer)
+
+    return new_numbers, [i for i in operations if i != 2]
+
 
 
 
 def has_valid_operation_combo(numbers, candidate_result):
-    possible_combos = 2 ** len(numbers)
+    possible_combos = 2 ** (len(numbers) - 1)
 
     for i in range(possible_combos):
-        operations = number_to_boolean_list(i, len(numbers))
+        operations = number_to_boolean_list(i, len(numbers)-1)
 
         accumulator = int(numbers[0])
 
@@ -47,15 +68,26 @@ def has_valid_operation_combo(numbers, candidate_result):
 
 
 def has_valid_operation_combo_2(numbers, candidate_result):
-    possible_combos = 3 ** len(numbers)
-
-    bit_length = (2 ** len(numbers).bit_length())
+    possible_combos = 3 ** (len(numbers) - 1)
 
     for i in range(possible_combos):
-        operations = number_to_ternary_list(i, bit_length)
+        operations = number_to_ternary_list(i, len(numbers) - 1)
 
-        if 3 in operations:
-            print("Currently checking a concatenation")
+        accumulator = int(numbers[0])
+
+        for next_number, operation in zip(numbers[1:], operations):
+            if operation == 1:
+                accumulator += int(next_number)
+            elif operation == 0:
+                accumulator *= int(next_number)
+            else:
+                accumulator = int(str(accumulator) + next_number)
+
+        if accumulator == int(candidate_result):
+            return True
+
+
+    return False
 
 
 
@@ -67,6 +99,8 @@ def number_to_boolean_list(number, bit_length):
         # right-shift the number
         number >>= 1
     return boolean_list
+
+
 
 def number_to_ternary_list(number, digit_length):
     ternary_list = []

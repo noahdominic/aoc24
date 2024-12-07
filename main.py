@@ -5,7 +5,7 @@ from aoc03 import day03_01, day03_02
 from aoc04 import day04_01, day04_02
 from aoc05 import day05_01, day05_02
 from aoc06 import day06_01# , day05_02
-from aoc07 import day07_01# , day05_02
+from aoc07 import day07_01, day05_02
 
 def main ():
     greet("Charlie")
@@ -21,6 +21,7 @@ def main ():
     # day05_02("input/05.txt")
     #day06_01("input/06.txt")
     day07_01("input/07.txt")
+    day07_02("input/07-test.txt")
 
 if __name__ == "__main__":
     main()

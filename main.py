@@ -28,7 +28,7 @@ def main ():
         lines = f.read().splitlines()
         print(lines)
 
-        print(aoc08.day08_01(lines))
+        print(aoc08.day08_02(lines))
 
 if __name__ == "__main__":
     main()

@@ -17,8 +17,6 @@ def day09_01(input_data):
     :param input_data: The input data as a string.
     :return: The solution to part 1.
     """
-    checksum = 0
-
     data = input_data[0]
 
     numbers = data[::2]
@@ -47,4 +45,31 @@ def day09_02(input_data):
     :param input_data: The input data as a string.
     :return: The solution to part 2.
     """
-    pass
+
+    data = input_data[0]
+
+    file_ranges = []
+    gap_ranges = []
+
+    is_file_block = True
+    current_index = 0
+    for entry in data:
+        if is_file_block:
+            file_ranges.append(range(current_index, current_index + int(entry)))
+        else:
+            gap_ranges.append(range(current_index, current_index + int(entry)))
+        current_index += int(entry)
+        is_file_block = not is_file_block
+
+    # Start compressin'
+    for i in range(len(file_ranges))[::-1]:
+        for j in range(len(gap_ranges)):
+            if gap_ranges[j].start > file_ranges[i].start:
+                break
+            if len(gap_ranges[j]) >= len(file_ranges[i]):
+                # commence swap
+                file_ranges[i] = range(gap_ranges[j].start, gap_ranges[j].start + len(file_ranges[i]))
+                gap_ranges[j] = range(gap_ranges[j].start + len(file_ranges[i]), gap_ranges[j].stop)
+            else:
+                continue
+    return sum([i * sum(file_range) for i, file_range in enumerate(file_ranges)])

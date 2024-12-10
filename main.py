@@ -6,7 +6,7 @@ from aoc00 import greet
 # from aoc05 import day05_01, day05_02
 # from aoc06 import day06_01# , day05_02
 # from aoc07 import day07_01, day07_02
-import aoc09
+import aoc10
 
 def main ():
     greet("Charlie")
@@ -24,11 +24,12 @@ def main ():
     # day07_01("input/07.txt")
     # day07_02("input/07.txt")
 
-    with open('input/09.txt', 'r') as f:
+    with open('input/10.txt', 'r') as f:
+    # with open('input/10-test.txt', 'r') as f:
         lines = f.read().splitlines()
         print(lines)
 
-        print(aoc09.day09_02(lines))
+        print(aoc10.day10_01(lines))
 
 if __name__ == "__main__":
     main()

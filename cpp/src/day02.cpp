@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <iostream>
 #include <sstream>
 #include "fmt/ranges.h"
@@ -27,6 +28,7 @@ int64_t day02::part01(const std::shared_ptr<std::vector<std::string>>& input_dat
         int8_t currentNumber = report[0];
         bool isIncreasing = (report[1] - report[0] > 0);
         bool isValid = true;
+
         for (auto nextNumber = report.begin() + 1;
             nextNumber != report.end();
             ++nextNumber)
@@ -53,3 +55,68 @@ int64_t day02::part01(const std::shared_ptr<std::vector<std::string>>& input_dat
 
     return total;
 }
+
+bool
+isSequenceValid(std::list<int8_t> report)
+{
+    int8_t currentNumber = report[0];
+    bool isIncreasing = (report[1] - report[0] > 0);
+    bool isValid = true;
+
+    for (auto nextNumber = report.begin() + 1;
+            nextNumber != report.end();
+            ++nextNumber)
+    {
+        int8_t difference = *nextNumber - currentNumber;
+
+        if (difference < -3 || difference == 0 || difference > 3) {
+            isValid = false;
+            break;
+        }
+
+        if (!isIncreasing == (difference > 0)) {
+            isValid = false;
+            break;
+        }
+
+        currentNumber = *nextNumber;
+    }
+
+    return isValid;
+}
+
+int64_t
+day02::part02(const std::shared_ptr<std::vector<std::string>> &input_data)
+{
+
+    std::vector<std::list<int8_t>> reports;
+    int64_t total = 0;
+
+    for (const std::string& line : *input_data) {
+        std::cout << line << std::endl;
+    }
+
+    for (std::basic_string<char> line: *input_data) {
+        std::list<int8_t> report;
+
+        std::istringstream stream(line);
+        int num;
+        while (stream >> num) {
+            report.push_back(num);
+        }
+
+        reports.push_back(report);
+    }
+
+    for (std::list<int8_t> report : reports) {
+        for (int i = 0; i != report.size(); i++) {
+            if(isSequenceValid())){
+                total++;
+            }
+        }
+    }
+    return 0;
+}
+
+
+

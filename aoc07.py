@@ -1,29 +1,26 @@
-def part1(path):
-    day07(path, has_valid_operation)
+def part1(lines):
+    return day07(lines, has_valid_operation_combo)
 
 
 
-def part2(path):
-    day07(path, has_valid_operation_combo_2)
+def part2(lines):
+    return day07(lines, has_valid_operation_combo_2)
 
 
 
-def day07(path, validator):
-    with open(path, 'r') as f:
-        lines = f.read().splitlines()
+def day07(lines, validator):
+    total_calib_result = 0
 
-        total_calib_result = 0
+    for line in lines:
+        candidate_result, numbers = line.split(":")
+        numbers = numbers.split(" ")[1:]
 
-        for line in lines:
-            candidate_result, numbers = line.split(":")
-            numbers = numbers.split(" ")[1:]
+        numbers_have_valid_combo = validator(numbers, candidate_result)
 
-            numbers_have_valid_combo = validator(numbers, candidate_result)
+        if numbers_have_valid_combo:
+            total_calib_result += int(candidate_result)
 
-            if numbers_have_valid_combo:
-                total_calib_result += int(candidate_result)
-
-        print(total_calib_result)
+    return total_calib_result
 
 
 

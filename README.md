@@ -23,22 +23,26 @@ In accordance with the request by the Advent of Code developers, **input files a
 
 ## Usage
 
-To execute the solution for a specific day, you can modify `main.py` to customise the days or solutions to run.
- Simply import the module for the day along with the needed functions.
+To execute the solution for a specific day and a specific part, you can run the Python script using the following command:
 
-Each day's module will be under the naming format `aocXX` with `XX` representing a 2-digit representation of the day number; for example, day 1 will be `aoc01`.  In them are two functions needed for the day in the naming format `day[2-digit day number]_[2-digit part number]`; for example, the part 2 solution is stored as `day01_02`.
+```bash
+pypy main.py day=<day_number> part=<part_number> [final]
+```
 
-To run, for example, parts 1 and 2 of day 1, simply modify **main.py** to be:
+### Parameters
+- **day**: Specifies the day number of the challenge you want to run. Replace `<day_number>` with the desired day (e.g., `day=2`).
+- **part**: Specifies the part of the challenge for the given day. Replace `<part_number>` with the desired part (e.g., `part=3`).
+- **final** *(optional)*: If provided, runs the script in "final" mode. If omitted, the script defaults to "test" mode.
 
-```python
-from aoc01 import day01_01, day01_02
+### Examples
+#### Run the script for Day 2, Part 3 using the test input shown in the puzzle text (default):
+```bash
+pypy main.py day=2 part=3
+```
 
-def main ():
-    day01_01()
-    day01_02()
-
-if __name__ == "__main__":
-    main()
+#### Run the script for Day 2, Part 3 in with the final, larger input:
+```bash
+pypy main.py day=2 part=3 final
 ```
 
 ## Licence

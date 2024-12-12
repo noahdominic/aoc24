@@ -1,22 +1,16 @@
-def part1(file_path):
-    with open(file_path) as file:
-        file_as_per_line = file.readlines()
+def part1(file_as_per_line):
+    reports = [line.split() for line in file_as_per_line]
 
-        reports = [line.split() for line in file_as_per_line]
+    analyses = [report_is_safe_2(report) for report in reports]
 
-        analyses = [report_is_safe_2(report) for report in reports]
+    return analyses.count(True)
 
-        print(analyses.count(True))
+def part2(file_as_per_line):
+    reports = [line.split() for line in file_as_per_line]
 
-def part2(file_path):
-    with open(file_path) as file:
-        file_as_per_line = file.readlines()
+    analyses = [report_is_safe_2(report) or any([report_is_safe_2(report[:i] + report[i+1:]) for i in range(len(report))]) for report in reports]
 
-        reports = [line.split() for line in file_as_per_line]
-
-        analyses = [report_is_safe_2(report) or any([report_is_safe_2(report[:i] + report[i+1:]) for i in range(len(report))]) for report in reports]
-
-        print(analyses.count(True))
+    return analyses.count(True)
 
 
 

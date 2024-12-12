@@ -31,7 +31,6 @@ def main ():
     with open(file_path, 'r') as f:
     # with open('input/10-test.txt', 'r') as f:
         lines = f.read().splitlines()
-        print(lines)
 
         print(wanted_function(lines))
 

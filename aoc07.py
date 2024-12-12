@@ -1,9 +1,9 @@
-def day07_01(path):
+def part1(path):
     day07(path, has_valid_operation)
 
 
 
-def day07_02(path):
+def part2(path):
     day07(path, has_valid_operation_combo_2)
 
 

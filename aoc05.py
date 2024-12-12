@@ -38,7 +38,7 @@ def topological_sort(graph, nodes_to_sort):
     # If we haven't sorted all nodes in the subset, there was a cycle in the subset
     return sorted_nodes
 
-def day05_01(file_path):
+def part1(file_path):
     with open(file_path, 'r') as f:
         lines = f.read().splitlines()
 
@@ -81,7 +81,7 @@ def day05_01(file_path):
 
         print(f"TOTAL: {total}")
 
-def day05_02(file_path):
+def part2(file_path):
     with open(file_path, 'r') as f:
         lines = f.read().splitlines()
 

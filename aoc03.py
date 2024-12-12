@@ -1,6 +1,6 @@
 import re
 
-def day03_01(file_path):
+def part1(file_path):
     with open(file_path) as f:
         line = ''.join(f.readlines())
         nums_to_calc = re.findall(r"mul\(([0-9]+),([0-9]+)\)", line)
@@ -13,7 +13,7 @@ def day03_01(file_path):
 
         print(total)
 
-def day03_02(file_path):
+def part2(file_path):
     with open(file_path, 'r') as f:
         lines = f.readlines()
         command_matches = re.finditer(r"do\(\)|don't\(\)", lines[0])

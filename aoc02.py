@@ -1,4 +1,4 @@
-def day02_01(file_path):
+def part1(file_path):
     with open(file_path) as file:
         file_as_per_line = file.readlines()
 
@@ -8,7 +8,7 @@ def day02_01(file_path):
 
         print(analyses.count(True))
 
-def day02_02(file_path):
+def part2(file_path):
     with open(file_path) as file:
         file_as_per_line = file.readlines()
 

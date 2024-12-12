@@ -1,4 +1,4 @@
-# Advent of Code Day day08_02
+# Advent of Code Day part2
 def calculate_antinodes(point_a, point_b):
     """
     Calculate the coordinates of the two antinodes given two points as tuples (x1, y1) and (x2, y2).
@@ -71,7 +71,7 @@ def calculate_resonant_antinodes(point_a, point_b, lx, ly):
 
     return antinodes
 
-def day08_01(input_data):
+def part1(input_data):
     """
     Solve part 1 of day 08.
     :param input_data: The input data as a string.
@@ -113,7 +113,7 @@ def day08_01(input_data):
 
     return len(antinodes)
 
-def day08_02(input_data):
+def part2(input_data):
     """
     Solve part 2 of day 08.
     :param input_data: The input data as a string.

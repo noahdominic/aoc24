@@ -1,7 +1,7 @@
 import numpy as np
 import re
 
-def day04_01(file_path):
+def part1(file_path):
     with open(file_path, newline="\n") as f:
         lines = f.read().splitlines()
 
@@ -25,7 +25,7 @@ def day04_01(file_path):
 
         print(total)
 
-def day04_02(file_path):
+def part2(file_path):
     with open(file_path) as f:
         total = 0
         grid = [list(line) for line in f.read().splitlines()]

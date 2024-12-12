@@ -29,7 +29,7 @@ def traverse_map(input_data, x, y, lx, ly, summits=None):
     return total
 
 
-def day10_01(input_data):
+def part1(input_data):
     """
     Solve part 1 of day 10.
     :param input_data: The input data as a string.
@@ -60,7 +60,7 @@ def day10_01(input_data):
     return sum(scores)
 
 
-def day10_02(input_data):
+def part2(input_data):
     """
     Solve part 2 of day 10.
     :param input_data: The input data as a string.

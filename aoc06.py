@@ -1,6 +1,6 @@
 UP, RIGHT, DOWN, LEFT = range(4)
 
-def day06_01(file_path):
+def part1(file_path):
     with open(file_path, 'r') as f:
         grid = [list(line) for line in f.read().splitlines()]
 

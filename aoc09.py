@@ -11,7 +11,7 @@ def pop_rightmost_number(mixed_list):
 
 
 
-def day09_01(input_data):
+def part1(input_data):
     """
     Solve part 1 of day 09.
     :param input_data: The input data as a string.
@@ -39,7 +39,7 @@ def day09_01(input_data):
 
 
 
-def day09_02(input_data):
+def part2(input_data):
     """
     Solve part 2 of day 09.
     :param input_data: The input data as a string.

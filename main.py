@@ -1,35 +1,39 @@
-from aoc00 import greet
-# from aoc01 import day01_01, day01_02
-# from aoc02 import day02_01, day02_02
-# from aoc03 import day03_01, day03_02
-# from aoc04 import day04_01, day04_02
-# from aoc05 import day05_01, day05_02
-# from aoc06 import day06_01# , day05_02
-# from aoc07 import day07_01, day07_02
-import aoc10
+import sys
+import importlib
 
 def main ():
-    greet("Charlie")
-    # day01_01()
-    # day01_02()
-    # day02_01("input/02.txt")
-    # day02_02("input/02.txt")
-    # day03_01("input/03.txt")
-    # day03_02("input/03.txt")
-    # day04_01("input/04.txt")
-    # day04_02("input/04.txt")
-    # day05_01("input/05.txt")
-    # day05_02("input/05.txt")
-    # day06_01("input/06.txt")
-    # day07_01("input/07.txt")
-    # day07_02("input/07.txt")
+    # Default values
+    day = 0
+    part = 0
+    test = True
 
-    with open('input/10.txt', 'r') as f:
+    for arg in sys.argv[1:]:
+        arg_parsed = arg.split('=')
+        match arg_parsed[0]:
+            case 'day':
+                day = int(arg_parsed[1])
+            case 'part':
+                part = int(arg_parsed[1])
+            case 'final':
+                test = False
+            case _:
+                pass
+
+    file_path = f"input/{day:02d}{'-test' if test else ''}.txt"
+
+    try:
+        wanted_module = importlib.import_module(f"aoc{day:02d}")
+    except ModuleNotFoundError:
+        raise ValueError(f"Module for day {day:02d} not found!")
+
+    wanted_function = wanted_module.part2 if part == 2 else wanted_module.part1
+
+    with open(file_path, 'r') as f:
     # with open('input/10-test.txt', 'r') as f:
         lines = f.read().splitlines()
         print(lines)
 
-        print(aoc10.day10_01(lines))
+        print(wanted_function(lines))
 
 if __name__ == "__main__":
     main()

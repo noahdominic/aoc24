@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 #include <iomanip>
-#include "include/day02.h"
+#include "include/aoc.h"
 
 
 std::string handleArgs(int argc, char* argv[], int &day, int &part) {
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
 
     switch (combo) {
         case 21:
-            day02::part01(lines);
+            std::cout << day02::part01(lines) << std::endl;
     }
     return 0;
 }

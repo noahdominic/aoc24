@@ -29,13 +29,7 @@ def traverse_map(input_data, x, y, lx, ly, summits=None):
     return total
 
 
-def part1(input_data):
-    """
-    Solve part 1 of day 10.
-    :param input_data: The input data as a string.
-    :return: The solution to part 1.
-    """
-
+def main_loop(input_data, is_part_one):
     input_data = [[int(x) for x in list(line)] for line in input_data]
 
     bases = []
@@ -53,11 +47,25 @@ def part1(input_data):
     lx = len(input_data[0])
     ly = len(input_data)
 
-    for base in bases:
-        scores.append(traverse_map(input_data, base[0], base[1], lx, ly))
+    if is_part_one:
+        for base in bases:
+            scores.append(traverse_map(input_data, base[0], base[1], lx, ly, summits))
+    else:
+        for base in bases:
+            scores.append(traverse_map(input_data, base[0], base[1], lx, ly))
 
     print(f"bases:{bases}\nsummits:{summits}\nscores:{scores}")
     return sum(scores)
+
+
+
+def part1(input_data):
+    """
+    Solve part 1 of day 10.
+    :param input_data: The input data as a string.
+    :return: The solution to part 1.
+    """
+    return main_loop(input_data, is_part_one=True)
 
 
 def part2(input_data):
@@ -66,4 +74,4 @@ def part2(input_data):
     :param input_data: The input data as a string.
     :return: The solution to part 2.
     """
-    pass
+    return main_loop(input_data, is_part_one=False)

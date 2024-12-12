@@ -1,55 +1,51 @@
 import numpy as np
 import re
 
-def part1(file_path):
-    with open(file_path, newline="\n") as f:
-        lines = f.read().splitlines()
+def part1(lines):
+    total = 0
 
-        total = 0
+    for _ in range(4):
+        for line in lines: total += len(re.findall(r"XMAS", line))
+        lines = rotate_90deg(lines)
 
-        for _ in range(4):
-            for line in lines: total += len(re.findall(r"XMAS", line))
-            lines = rotate_90deg(lines)
+    diagonals_1, diagonals_2 = create_diagonals(lines)
+
+    for line in diagonals_1: total += len(re.findall(r"XMAS", line))
+    for line in diagonals_2: total += len(re.findall(r"XMAS", line))
+
+    diagonals_1 = [line[::-1] for line in diagonals_1]
+    diagonals_2 = [line[::-1] for line in diagonals_2]
+
+    for line in diagonals_1: total += len(re.findall(r"XMAS", line))
+    for line in diagonals_2: total += len(re.findall(r"XMAS", line))
+
+    return total
 
 
-        diagonals_1, diagonals_2 = create_diagonals(lines)
+def part2(lines):
+    total = 0
+    grid = [list(line) for line in lines]
 
-        for line in diagonals_1: total += len(re.findall(r"XMAS", line))
-        for line in diagonals_2: total += len(re.findall(r"XMAS", line))
+    padded_grid = [['*' for _ in range(len(grid[0]) + 2)]]
+    for row in grid:
+        padded_grid += [['*'] + row[::] + ['*']]
 
-        diagonals_1 = [line[::-1] for line in diagonals_1]
-        diagonals_2 = [line[::-1] for line in diagonals_2]
+    padded_grid += [['*' for _ in range(len(grid[0]) + 2)]]
 
-        for line in diagonals_1: total += len(re.findall(r"XMAS", line))
-        for line in diagonals_2: total += len(re.findall(r"XMAS", line))
+    for i in range(len(padded_grid)):
+        for j in range(len(padded_grid[0])):
+            if padded_grid[i][j] == 'A':
+                if (padded_grid[i-1][j-1] == 'M' and padded_grid[i+1][j+1] == 'S' or padded_grid[i-1][j-1] == 'S' and padded_grid[i+1][j+1] == 'M') and (padded_grid[i-1][j+1] == 'M' and padded_grid[i+1][j-1] == 'S' or padded_grid[i-1][j+1] == 'S' and padded_grid[i+1][j-1] == 'M'):
+                       total += 1
 
-        print(total)
+    return total
 
-def part2(file_path):
-    with open(file_path) as f:
-        total = 0
-        grid = [list(line) for line in f.read().splitlines()]
-        print(grid)
 
-        padded_grid = [['*' for _ in range(len(grid[0]) + 2)]]
-        for row in grid:
-            padded_grid += [['*'] + row[::] + ['*']]
-
-        padded_grid += [['*' for _ in range(len(grid[0]) + 2)]]
-
-        for i in range(len(padded_grid)):
-            for j in range(len(padded_grid[0])):
-                if padded_grid[i][j] == 'A':
-                    if (padded_grid[i-1][j-1] == 'M' and padded_grid[i+1][j+1] == 'S' or padded_grid[i-1][j-1] == 'S' and padded_grid[i+1][j+1] == 'M') and (padded_grid[i-1][j+1] == 'M' and padded_grid[i+1][j-1] == 'S' or padded_grid[i-1][j+1] == 'S' and padded_grid[i+1][j-1] == 'M'):
-                           total += 1
-
-        print(padded_grid)
-        print(total)
- 
 def rotate_90deg(lines):
     grid = [list(line) for line in lines]
     new_grid = np.transpose(grid)[::-1]
     return [''.join(row).rstrip() for row in new_grid]
+
 
 def create_diagonals(arr):
     # Convert the array of strings into a 2D numpy array

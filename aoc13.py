@@ -1,41 +1,4 @@
 # Advent of Code Day 13
-import numpy as np
-
-
-def calculate_solution(s, t, u, v, w, x, a, b):
-    """
-    This function calculates solution using the determinant/matrix method
-    by vieweing the two numbers as a system of equation:
-        as + bt = u
-        av + bw = x
-    where a is the number of times buttom A is pressed,
-    b is the number of times button B is pressed,
-    s is the x contribution of a press of button A,
-    t is the x contribution of a press of button B,
-    u is the total contributions needed for x,
-    v is the y contribution of a press of button A,
-    w is the y contribution of a press of button B,
-    and x is the total contributions eneded for y.
-    """
-
-    A = np.array([[s, t], [v, w]])
-    C = np.array([u, x])
-
-    det_A = np.linalg.det(A)
-    if det_A != 0:
-        solution = np.linalg.solve(A, C)
-        a, b = solution[0], solution[1]
-    else:
-        a, b = None, None
-
-    a = round(a, 3)
-    b = round(b, 3)
-
-    a = int(a) if a.is_integer() else None
-    b = int(b) if b.is_integer() else None
-
-    return a, b
-
 def part1(input_data):
     """
     Solve part 1 of day 13.
@@ -65,12 +28,12 @@ def part1(input_data):
 
         if line == '':
             a, b = calculate_solution(s, t, u, v, w, x, a, b)
+            b = (s*x - u*v)/(s*w - t*v)
+            a = (u - b*t)/s
+            print(f"a={a}, b={b}")
+            if a.is_integer() and b.is_integer():
+                total_cost += 3 * a + b
             s, t, u, v, w, x = 0, 0, 0, 0, 0, 0
-            if a is not None and b is not None:
-                print(f"Solution is possible! a={a}, b={b}")
-                cost = 3 * a + b
-                print(f"cost={cost}")
-                total_cost += cost
             continue
 
         label, numbers = line.split(':')
@@ -88,8 +51,6 @@ def part1(input_data):
             w = int(items[1].split('+')[1])
         else:
             pass
-
-        print(s, t, u, v, w, x)
 
     return total_cost
 
@@ -121,14 +82,13 @@ def part2(input_data):
 
         if line == '':
             a, b = calculate_solution(s, t, u, v, w, x, a, b)
+            b = (s*x - u*v)/(s*w - t*v)
+            a = (u - b*t)/s
+            print(f"a={a}, b={b}")
+            if a.is_integer() and b.is_integer():
+                total_cost += 3 * a + b
             s, t, u, v, w, x = 0, 0, 0, 0, 0, 0
-            if a is not None and b is not None:
-                print(f"Solution is possible! a={a}, b={b}")
-                cost = 3 * a + b
-                print(f"cost={cost}")
-                total_cost += cost
             continue
-
         label, numbers = line.split(':')
         if label == 'Prize':
             items = numbers.split(',')
@@ -144,7 +104,5 @@ def part2(input_data):
             w = int(items[1].split('+')[1])
         else:
             pass
-
-        print(s, t, u, v, w, x)
 
     return total_cost
